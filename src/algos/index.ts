@@ -5,7 +5,7 @@ import {
 } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import * as halloweenTest from './halloween-test'
 
-type AlgoHandler = (ctx: AppContext, params: QueryParams) => Promise<AlgoOutput>
+type AlgoHandler = (ctx: AppContext, params: QueryParams, requesterDid: string) => Promise<AlgoOutput>
 
 const algos: Record<string, AlgoHandler> = {
   [halloweenTest.shortname]: halloweenTest.handler,

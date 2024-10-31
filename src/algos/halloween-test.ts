@@ -4,7 +4,8 @@ import { AppContext } from '../config'
 // max 15 chars
 export const shortname = 'halloween-test'
 
-export const handler = async (ctx: AppContext, params: QueryParams) => {
+export const handler = async (ctx: AppContext, params: QueryParams, requesterDid: string) => {
+  console.log(requesterDid)
   let builder = ctx.db
     .selectFrom('post')
     .selectAll()

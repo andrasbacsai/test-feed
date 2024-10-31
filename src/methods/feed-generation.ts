@@ -29,13 +29,12 @@ export default function (server: Server, ctx: AppContext) {
      *   ctx.didResolver,
      * )
      */
-     const requesterDid = await validateAuth(
-       req,
-       ctx.cfg.serviceDid,
-       ctx.didResolver,
-      );
-      console.log(requesterDid)
-    const body = await algo(ctx, params)
+    const requesterDid = await validateAuth(
+      req,
+      ctx.cfg.serviceDid,
+      ctx.didResolver,
+    );
+    const body = await algo(ctx, params, requesterDid)
     return {
       encoding: 'application/json',
       body: body,
