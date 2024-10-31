@@ -7,7 +7,6 @@ export const validateAuth = async (
   serviceDid: string,
   didResolver: DidResolver,
 ): Promise<string> => {
-  console.log(req.headers)
   const { authorization = '' } = req.headers
   if (!authorization.startsWith('Bearer ')) {
     console.log('AuthRequiredError')
@@ -19,5 +18,6 @@ export const validateAuth = async (
   const parsed = await verifyJwt(jwt, serviceDid, nsid, async (did: string) => {
     return didResolver.resolveAtprotoKey(did)
   })
+  console.log(parsed)
   return parsed.iss
 }
