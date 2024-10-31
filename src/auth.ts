@@ -7,6 +7,7 @@ export const validateAuth = async (
   serviceDid: string,
   didResolver: DidResolver,
 ): Promise<string> => {
+  console.log(req.headers)
   const { authorization = '' } = req.headers
   if (!authorization.startsWith('Bearer ')) {
     throw new AuthRequiredError()

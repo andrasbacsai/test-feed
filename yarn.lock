@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@atproto/api@^0.6.20":
+"@atproto/api@^0.6.3":
   version "0.6.20"
   resolved "https://registry.npmjs.org/@atproto/api/-/api-0.6.20.tgz"
   integrity sha512-+peoKgkaxbglXQg9qEZcZIvyWm39yj0+syV3TBDrz5cWK4OIsdOyYBg2iISy+jvB5RzEUMe2WvOojP6Nq34mOg==

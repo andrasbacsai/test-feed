@@ -1,36 +1,31 @@
 import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
+import { BskyAgent } from '@atproto/api'
 
-// max 15 chars
 export const shortname = 'halloween-test'
 
 export const handler = async (ctx: AppContext, params: QueryParams, requesterDid: string) => {
-  console.log(requesterDid)
-  let builder = ctx.db
-    .selectFrom('post')
-    .selectAll()
-    .orderBy('indexedAt', 'desc')
-    .orderBy('cid', 'desc')
-    .limit(params.limit)
+  console.log('aaasd');
+  const agent = new BskyAgent({ service: 'https://bsky.social' })
+  // Get user's posts
+  const response = await agent.api.app.bsky.feed.getAuthorFeed({
+    actor: requesterDid,
+    limit: params.limit,
+    cursor: params.cursor,
+  })
 
-  if (params.cursor) {
-    const timeStr = new Date(parseInt(params.cursor, 10)).toISOString()
-    builder = builder.where('post.indexedAt', '<', timeStr)
+  if (!response.success) {
+    return { feed: [] }
   }
-  const res = await builder.execute()
 
-  const feed = res.map((row) => ({
-    post: row.uri,
-  }))
-
-  let cursor: string | undefined
-  const last = res.at(-1)
-  if (last) {
-    cursor = new Date(last.indexedAt).getTime().toString(10)
-  }
+  const feed = response.data.feed
+    .filter(item => (item.post.record as { text: string }).text.toLowerCase().includes('halloween'))
+    .map(item => ({
+      post: item.post.uri,
+    }))
 
   return {
-    cursor,
+    cursor: response.data.cursor,
     feed,
   }
 }
