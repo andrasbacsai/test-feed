@@ -7,6 +7,7 @@ import { AtUri } from '@atproto/syntax'
 
 export default function (server: Server, ctx: AppContext) {
   server.app.bsky.feed.getFeedSkeleton(async ({ params, req }) => {
+    console.log(params)
     const feedUri = new AtUri(params.feed)
     const algo = algos[feedUri.rkey]
     if (

@@ -62,17 +62,10 @@ const run = async () => {
     avatarRef = blobRes.data.blob
   }
 
-  await agent.api.com.atproto.repo.putRecord({
+  await agent.api.com.atproto.repo.deleteRecord({
     repo: agent.session?.did ?? '',
     collection: ids.AppBskyFeedGenerator,
     rkey: recordName,
-    record: {
-      did: feedGenDid,
-      displayName: displayName,
-      description: description,
-      avatar: avatarRef,
-      createdAt: new Date().toISOString(),
-    },
   })
 
   console.log('All done 🎉')
