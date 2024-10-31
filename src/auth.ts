@@ -10,10 +10,12 @@ export const validateAuth = async (
   console.log(req.headers)
   const { authorization = '' } = req.headers
   if (!authorization.startsWith('Bearer ')) {
+    console.log('AuthRequiredError')
     throw new AuthRequiredError()
   }
   const jwt = authorization.replace('Bearer ', '').trim()
   const nsid = parseReqNsid(req)
+  console.log(jwt, serviceDid, nsid)
   const parsed = await verifyJwt(jwt, serviceDid, nsid, async (did: string) => {
     return didResolver.resolveAtprotoKey(did)
   })

@@ -5,7 +5,6 @@ import { BskyAgent } from '@atproto/api'
 export const shortname = 'halloween-test'
 
 export const handler = async (ctx: AppContext, params: QueryParams, requesterDid: string) => {
-  console.log('aaasd');
   const agent = new BskyAgent({ service: 'https://bsky.social' })
   // Get user's posts
   const response = await agent.api.app.bsky.feed.getAuthorFeed({
